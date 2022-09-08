@@ -1,17 +1,62 @@
 import Header from '../components/Header';
 import Main from './Main';
 import Footer from './Footer';
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-function App() {
-  return (
-      <div className="body">
+
+function closeAllPopups () {
+
+}
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isEditProfilePopupOpen: false,
+      isAddPlacePopupOpen: false,
+      isEditAvatarPopupOpen: false,
+    }
+  }
+
+  handleEditAvatarClick() {
+    this.setState({
+      isEditAvatarPopupOpen: !this.state.isEditAvatarPopupOpen
+    });
+  };
+
+  handleEditProfileClick() {
+    this.setState({
+      isEditProfilePopupOpen: !this.state.isEditProfilePopupOpen
+    });
+    return this.state.isEditProfilePopupOpen;
+  };
+
+  handleAddPlaceClick () {
+    this.setState({
+      isAddPlacePopupOpen: !this.state.isAddPlacePopupOpen
+    });
+  };
+
+  render() {
+    return (
+      <>
         <div className="page">
           <Header />
-          <Main />
+          <Main 
+          onEditAvatar={App.handleEditAvatarClick}
+          onEditProfile={App.handleEditProfileClick}
+          onAddPlace={App.handleAddPlaceClick}
+          />
           <Footer />
         </div>
-
-        <div className="popup  popup_profile">
+        {console.log(App.handleEditAvatarClick)}
+        {false && <PopupWithForm name="profile" title="Редактировать профиль" button="Сохранить" />}
+        {false && <PopupWithForm name="avatar" title="Обновить аватар" button="Сохранить" />}
+        {false && <PopupWithForm name="add" title="Новое место" button="Создать" />}
+        {/* <div className="popup  popup_profile">
           <section className="popup__content">
             <button className="popup__close-button popup__close-button_profile" type="button"></button>
             <h2 className="popup__title">Редактировать профиль</h2>
@@ -23,9 +68,9 @@ function App() {
               <button type="submit" className="popup__button">Сохранить</button>
             </form>
           </section>
-        </div>
+        </div> */}
 
-        <div className="popup popup_avatar">
+        {/* <div className="popup popup_avatar">
           <section className="popup__content">
             <button className="popup__close-button" type="button"></button>
             <h2 className="popup__title">Обновить аватар</h2>
@@ -35,7 +80,7 @@ function App() {
               <button type="submit" className="popup__button">Сохранить</button>
             </form>
           </section>
-        </div>
+        </div> */}
 
         <div className="popup popup_add">
           <section className="popup__content">
@@ -49,14 +94,6 @@ function App() {
               <button type="submit" className="popup__button">Создать</button>
             </form>
           </section>
-        </div>
-
-        <div className="popup popup_big">
-          <div className="popup__container">
-            <button className="popup__close-button popup__close-button_big" type="button"></button>
-            <img className="popup__image" />
-            <p className="popup__image-name"></p>
-          </div>
         </div>
 
         <div className="popup popup_delete">
@@ -81,8 +118,9 @@ function App() {
             </div>
           </article>
         </template>
-      </div>
-  );
+      </>
+    );
+  }
 }
 
 export default App;
