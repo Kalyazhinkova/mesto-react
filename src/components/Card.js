@@ -1,7 +1,6 @@
 function Card (props) {
-
   const {card, onClick}= props;
-
+  
   return (
     <>
     <article className="element">
