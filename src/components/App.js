@@ -12,12 +12,14 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
 
 
-  const [selectedCard, setSelectedCard] = React.useState(false);
-  const [openPopupName, setOpenPopupName]= React.useState({});
+  const [selectedCard, setSelectedCard] = React.useState({});
+  const [openPopupName, setOpenPopupName] = React.useState(false);
 
-  function handleCardClick () {
-    setSelectedCard(true);
+  function onCardClick(card) {
+    setSelectedCard(card);
+    setOpenPopupName(true);
   }
+
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -35,7 +37,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setSelectedCard(false);
+    setOpenPopupName(false);
   }
 
   return (
@@ -45,6 +47,7 @@ function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
+        onCardClick={onCardClick}
       />
       <Footer />
 
@@ -76,6 +79,12 @@ function App() {
           <button type="submit" className="popup__button">Создать</button>
         </form>
       } />
+
+      <ImagePopup card={selectedCard} isOpen={openPopupName} onClose={() => {
+        closeAllPopups();
+        setSelectedCard({});
+      }} />
+
 
       <div className="popup popup_delete">
         <section className="popup__content">

@@ -25,29 +25,16 @@ function Main(props) {
       .catch(console.error);
   }, []);
 
+
+
   const cardComponent =  cards.map((card) => {
-    // <Card 
-    // key = {card._id}
-    // card = {card}
-    // />
-   return (
-    <>
-    <article className="element">
-      <img className="element__image" alt={`Фотография. ${card.name}`} src={card.link}/>
-      <button className="element__trash" type="button"></button>
-      <div className="element__print">
-        <h2 className="element__title">{card.name}</h2>
-        <div className="element__like-group">
-          <button className="element__like" type="button"></button>
-          <p className="element__counter">{card.likes.length}</p>
-        </div>
-      </div>
-    </article>
-  </>
-   );
+    return <Card 
+    key = {card._id}
+    card = {card}
+    onClick = {props.onCardClick}
+    />
   });
 
-  console.log(cardComponent);
 
   return ( 
     <main className="content">
