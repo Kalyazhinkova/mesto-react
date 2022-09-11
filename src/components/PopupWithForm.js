@@ -3,7 +3,6 @@ import React from 'react';
 function PopupWithForm (props) {
   const openClassName = (props.isOpen? 'popup_open' : '' );
 
-
     return (
       <div className={`popup popup_${props.name} ${openClassName}`}>
       <section className="popup__content">
