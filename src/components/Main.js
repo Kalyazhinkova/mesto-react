@@ -1,28 +1,11 @@
-import { useState, useEffect } from 'react';
-import api from '../utils/Api';
+import {useContext } from 'react';
 import Card from './Card';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 function Main(props) {
 
-  const [currentUser, setCurrentUser] = useState({});
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    (api.getUserInfo())
-      .then((user) => {
-        setCurrentUser(user);
-      })
-      .catch(console.error);
-  }, []);
-
-  useEffect(() => {
-    (api.getInitialCards())
-      .then((initialCards) => {
-        setCards(initialCards.slice().reverse());
-      })
-      .catch(console.error);
-  }, []);
-
+  const currentUser = useContext(CurrentUserContext);
+ 
   return (
     <main className="content">
       <section className="profile">
@@ -39,11 +22,13 @@ function Main(props) {
         <button className="profile__add-button" type="button" onClick={props.onAddPlace}></button>
       </section>
       <section className="elements">
-        {cards.map((card) => {
+        {props.cards.map((card) => {
           return <Card
             key={card._id}
             card={card}
             onClick={props.onCardClick}
+            onLike={props.onCardLike}
+            onDelete={props.onCardDelete}
           />
         })}
       </section>

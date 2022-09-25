@@ -1,15 +1,21 @@
+import {useContext} from 'react';
+import {CurrentUserContext} from '../contexts/CurrentUserContext';
+
 function Card (props) {
-  const {card, onClick}= props;
-  
+  const {card, onClick, onLike, onDelete}= props;
+  const currentUser = useContext(CurrentUserContext);
+  const isOwn = card.owner._id === currentUser._id;
+  const isLiked = card.likes.some(i => i._id === currentUser._id);
+ 
   return (
     <>
     <article className="element">
       <img className="element__image" alt={`Фотография. ${card.name}`} src={card.link} onClick={() => {onClick(card);}}/>
-      <button className="element__trash" type="button"></button>
+      {isOwn && <button className="element__trash" type="button" onClick={() => {onDelete(card);}}></button>}
       <div className="element__print">
         <h2 className="element__title">{card.name}</h2>
         <div className="element__like-group">
-          <button className="element__like" type="button"></button>
+          <button className={isLiked?" element__like element__like_active":"element__like"} type="button" onClick={() => {onLike(card);}}></button>
           <p className="element__counter">{card.likes.length}</p>
         </div>
       </div>

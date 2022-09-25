@@ -76,15 +76,17 @@ class Api {
       .then(this._handleResponce)
   }
 
-  likeCard({ id, haveNotLiked }) {
-    if (haveNotLiked) {
+  likeCard( id, haveNotLiked ) {
+    if (haveNotLiked) 
+    {
       return fetch(
         `${this._config.baseUrl}/cards/${id}/likes`, {
         method: 'PUT',
         headers: this._config.headers
       })
         .then(this._handleResponce)
-    } else {
+    }
+     else {
       return fetch(
         `${this._config.baseUrl}/cards/${id}/likes`, {
         method: 'DELETE',
@@ -98,6 +100,3 @@ class Api {
 const api = new Api(apiConfig);
 
 export default api;
-
-
-
