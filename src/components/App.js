@@ -4,9 +4,11 @@ import api from '../utils/Api';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
-import EditAvatarPopup from './EditAvatarPopup';
+import EditProfilePopup from './EditProfilePopup';
 import {useState, useEffect} from 'react';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 
 function App() {
 
@@ -25,7 +27,7 @@ function App() {
         setCurrentUser(user);
       })
       .catch(console.error);
-  }, [currentUser]);
+  }, []);
 
   const [cards, setCards] = useState([]);
 
@@ -61,10 +63,29 @@ function App() {
     .catch(console.error);
   }
 
-  function handleUpdateUser() {
-    api.setNewUserInfo()
+  function handleUpdateUser(name, about) {
+    api.setNewUserInfo(name, about)
     .then((user) => {
-      setCurrentUser(user)
+      setCurrentUser(user);
+    })
+    .catch(console.error);
+    closeAllPopups();
+  };
+
+  function handleUpdateAvatar (avatar) {
+    api.setNewAvatar(avatar)
+    .then((user) => {
+      setCurrentUser(user);
+    })
+    .catch(console.error);
+    closeAllPopups();
+  };
+
+  function handleAddPlaceSubmit (newCard) {
+    console.log(newCard);
+    api.createCard (newCard)
+    .then((res) => {
+      setCards([res, ...cards]);
     })
     .catch(console.error);
     closeAllPopups();
@@ -103,23 +124,11 @@ function App() {
       />
       <Footer />
 
-      <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} buttonText={"Сохранить"}>
-        <form className="form" name="avatar-form" id="avatar-form" noValidate>
-          <input type="url" className="form__item" id="avatar-link" name="avatar__link" required />
-          <span className="avatar-link-error form__item-error"></span>
-        </form>
-      </PopupWithForm>
+    <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />  
 
-    <EditAvatarPopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
+    <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
 
-      <PopupWithForm name="add" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText={"Создать"}>
-        <form className="form" name="add-form" id="add-form" noValidate>
-          <input type="text" className="form__item" id="image-name" name="image__name" placeholder="Название" minLength="2" maxLength="30" required />
-          <span className="image-name-error form__item-error"></span>
-          <input type="url" className="form__item" id="image-link" name="image__link" placeholder="Ссылка на картинку" required />
-          <span className="image-link-error form__item-error"></span>
-        </form>
-      </PopupWithForm>
+    <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit} /> 
 
       <ImagePopup card={selectedCard} isOpen={openPopupName} onClose={() => {
         closeAllPopups();

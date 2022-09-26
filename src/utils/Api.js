@@ -33,13 +33,13 @@ class Api {
       .then(this._handleResponce)
   }
 
-  setNewAvatar(avatar) {
+  setNewAvatar(userInfo) {
     return fetch(
       `${this._config.baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._config.headers,
       body: JSON.stringify({
-        avatar: avatar
+        avatar: userInfo.avatar,
       })
     })
       .then(this._handleResponce)
@@ -54,15 +54,12 @@ class Api {
       .then(this._handleResponce)
   }
 
-  createCard(name, link) {
+  createCard(card) {
     return fetch(
       `${this._config.baseUrl}/cards`, {
       method: 'POST',
       headers: this._config.headers,
-      body: JSON.stringify({
-        name: name,
-        link: link
-      })
+      body: JSON.stringify({name: card.name, link: card.link})
     })
       .then(this._handleResponce)
   }
