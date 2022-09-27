@@ -27,11 +27,10 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
       e.preventDefault();
       onUpdateUser (name, description);
     }} >
-      <input type="text" className="form__item" id="name" name="name" minLength="2" maxLength="40" required value={name} onChange={handleChangeName} />
+      <input type="text" className="form__item" id="name" name="name" minLength="2" maxLength="40" required value={name || ""} onChange={handleChangeName} />
       <span className="name-error form__item-error"></span>
-      <input type="text" className="form__item" id="about" name="about" minLength="2" maxLength="200" required value={description} onChange={handleChangeDescription} />
+      <input type="text" className="form__item" id="about" name="about" minLength="2" maxLength="200" required value={description || ""} onChange={handleChangeDescription} />
       <span className="about-error form__item-error"></span>
-    
   </PopupWithForm>
   );
 }

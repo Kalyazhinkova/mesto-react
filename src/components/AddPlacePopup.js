@@ -19,12 +19,10 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
     onSubmit={(e) => {
       e.preventDefault();
       onAddPlace(values);}}>
-    <form className="form" name="add-form" id="add-form" noValidate>
-      <input type="text" className="form__item" id="image-name" name="name" placeholder="Название" minLength="2" maxLength="30" values={values.name} onChange={handleChange} required />
+      <input type="text" className="form__item" id="image-name" name="name" placeholder="Название" minLength="2" maxLength="30" value={values.name} onChange={handleChange} required />
       <span className="image-name-error form__item-error"></span>
       <input type="url" className="form__item" id="image-link" name="link" placeholder="Ссылка на картинку" value={values.link} onChange={handleChange} required />
       <span className="image-link-error form__item-error"></span>
-    </form>
   </PopupWithForm>
   );
 }

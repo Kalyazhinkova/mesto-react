@@ -10,7 +10,7 @@ function Card (props) {
   return (
     <>
     <article className="element">
-      <img className="element__image" alt={`Фотография. ${card.name}`} src={card.link} onClick={() => {onClick(card);}}/>
+      <img className="element__image" alt={`${card.name}`} src={card.link} onClick={() => {onClick(card);}}/>
       {isOwn && <button className="element__trash" type="button" onClick={() => {onDelete(card);}}></button>}
       <div className="element__print">
         <h2 className="element__title">{card.name}</h2>

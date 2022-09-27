@@ -67,28 +67,27 @@ function App() {
     api.setNewUserInfo(name, about)
     .then((user) => {
       setCurrentUser(user);
+      closeAllPopups();
     })
     .catch(console.error);
-    closeAllPopups();
   };
 
   function handleUpdateAvatar (avatar) {
     api.setNewAvatar(avatar)
     .then((user) => {
       setCurrentUser(user);
+      closeAllPopups();
     })
     .catch(console.error);
-    closeAllPopups();
   };
 
   function handleAddPlaceSubmit (newCard) {
-    console.log(newCard);
     api.createCard (newCard)
     .then((res) => {
       setCards([res, ...cards]);
+      closeAllPopups();
     })
     .catch(console.error);
-    closeAllPopups();
   };
 
   function handleEditAvatarClick() {
